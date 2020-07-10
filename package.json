@@ -1,0 +1,27 @@
+{
+  "name": "haphazard_engineering",
+  "version": "1.0.0",
+  "description": "Static Blog Generator",
+  "main": "index.js",
+  "scripts": {
+    "start-yaas": "cd build/light && open http://localhost:8084 && npx http-server -p 8084 ",
+    "start": "nodemon -e js,html,json --ignore './build'",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/sp33drac3r/haphazard_engineering.git"
+  },
+  "author": "Riley Scheid",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/sp33drac3r/haphazard_engineering/issues"
+  },
+  "homepage": "https://github.com/sp33drac3r/haphazard_engineering#readme",
+  "dependencies": {
+    "express": "^4.17.1",
+    "mustache": "^4.0.1",
+    "nodemon": "^2.0.4",
+    "open": "^7.0.4"
+  }
+}

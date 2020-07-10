@@ -93,11 +93,42 @@
       <a href="/index.html">Home</a>
       <a href="/about.html">About</a>
       <a href="/blog.html">Blog</a>
-      <a href="https://dark.haphazard.engineering/{{LINK}}">🌚</a>
+      <a href="https://dark.haphazard.engineering/">🌚</a>
     </nav>
     <main>
       <content>
-        {{{CONTENT}}}
+        <div>
+  <h2>Blog Entries</h2>
+  <style>
+    ul {
+      list-style-type: none;
+      padding: unset;
+    }
+
+    li {
+      display: flex;
+    }
+
+    li span {
+      flex: 0 0 130px;
+    }
+
+    li a:visited {
+      color: #6532dc;
+    }
+  </style>
+  <div>
+    <ul>
+      <li>
+        <span
+          ><i><time datetime="2020-06-29" pubdate>29 Jun, 2020</time></i></span
+        >
+        <a href="/blog/a-new-mission.html">A New Mission</a>
+      </li>
+    </ul>
+  </div>
+</div>
+
       </content>
     </main>
     <footer>Made with 💙 in San Francisco</footer>
