@@ -19,9 +19,12 @@
   },
   "homepage": "https://github.com/sp33drac3r/haphazard_engineering#readme",
   "dependencies": {
+    "connect-livereload": "^0.6.1",
     "express": "^4.17.1",
+    "livereload": "^0.9.1",
     "mustache": "^4.0.1",
     "nodemon": "^2.0.4",
-    "open": "^7.0.4"
+    "open": "^7.0.4",
+    "reload": "^3.1.0"
   }
 }
