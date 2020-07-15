@@ -3,20 +3,21 @@ const path = require("path");
 const Mustache = require("mustache");
 const resizeImage = require("./src/helpers/image.js");
 
-// Helper methods.
-const readFilesInFolder = (folder) =>
-  fs.readdirSync(path.join(__dirname, folder));
+// Helper.
+const readFilesInFolder = (folder) => fs.readdirSync(folder);
 
 // Constants.
-const BUILD_FOLDER = "./public";
-const PAGES_FOLDER = "/src/pages";
-const BLOG_FOLDER = "/blog";
+const PUBLIC = "public";
+const SRC = path.join(__dirname, "src");
+const IMAGES = "images";
+const PAGES = path.join(SRC, "pages");
+const BLOG = "blog";
 const FAVICON = "./favicon.ico";
-const BUILD_LIGHT_MODE_FOLDER = BUILD_FOLDER;
-const BUILD_DARK_MODE_FOLDER = path.join(BUILD_FOLDER, "dark");
-const TEMPLATE = "/src/template.mustache";
+const BUILD_LIGHT_MODE_FOLDER = PUBLIC;
+const BUILD_DARK_MODE_FOLDER = path.join(PUBLIC, "dark");
+const TEMPLATE = path.join(SRC, "template.mustache");
 
-const templateText = fs.readFileSync(__dirname + TEMPLATE).toString();
+const templateText = fs.readFileSync(TEMPLATE).toString();
 
 const lightMode = {
   linkPath: "",
@@ -33,26 +34,26 @@ const darkMode = {
 };
 
 const makeFolders = () => {
-  if (!fs.existsSync(BUILD_FOLDER)) {
-    fs.mkdirSync(BUILD_FOLDER);
-    fs.mkdirSync(path.join(BUILD_LIGHT_MODE_FOLDER, BLOG_FOLDER));
+  if (!fs.existsSync(PUBLIC)) {
+    fs.mkdirSync(PUBLIC);
+    fs.mkdirSync(path.join(BUILD_LIGHT_MODE_FOLDER, BLOG));
   }
 
   // Make /build/dark if it doesn't exist.
   if (!fs.existsSync(BUILD_DARK_MODE_FOLDER)) {
     fs.mkdirSync(BUILD_DARK_MODE_FOLDER);
-    fs.mkdirSync(path.join(BUILD_DARK_MODE_FOLDER, BLOG_FOLDER));
+    fs.mkdirSync(path.join(BUILD_DARK_MODE_FOLDER, BLOG));
   }
 
-  if (!fs.existsSync(path.join(BUILD_FOLDER, "images"))) {
-    fs.mkdirSync(path.join(BUILD_FOLDER, "images"));
+  if (!fs.existsSync(path.join(PUBLIC, IMAGES))) {
+    fs.mkdirSync(path.join(PUBLIC, IMAGES));
   }
 };
 
 const buildPages = () => {
-  const pages = readFilesInFolder(PAGES_FOLDER);
+  const pages = readFilesInFolder(PAGES);
   pages.forEach((page) => {
-    const data = fs.readFileSync(`${__dirname}${PAGES_FOLDER}/${page}`);
+    const data = fs.readFileSync(path.join(PAGES, page));
 
     let thinger;
     if (page === "blog.html") {
@@ -98,15 +99,14 @@ const buildPages = () => {
 };
 
 const buildPosts = () => {
-  const blogPosts = readFilesInFolder(path.join("src", BLOG_FOLDER));
+  const blogPosts = readFilesInFolder(path.join(SRC, BLOG));
   blogPosts.forEach((blog) => {
-    const data = fs.readFileSync(
-      path.join(__dirname, "src", BLOG_FOLDER, blog)
-    );
+    const data = fs.readFileSync(path.join(SRC, BLOG, blog));
 
+    // Light mode.
     const lightModeRendered = Mustache.render(templateText, {
       CONTENT: data.toString(),
-      LINK: path.join("blog", blog),
+      LINK: path.join(BLOG, blog),
       linkPath: lightMode.linkPath,
       otherModeLinkPath: darkMode.linkPath,
       navEmoji: lightMode.navEmoji,
@@ -115,13 +115,14 @@ const buildPosts = () => {
     });
 
     fs.writeFileSync(
-      path.join(BUILD_LIGHT_MODE_FOLDER, BLOG_FOLDER, blog),
+      path.join(BUILD_LIGHT_MODE_FOLDER, BLOG, blog),
       lightModeRendered
     );
 
+    // Dark mode.
     const darkModeRendered = Mustache.render(templateText, {
       CONTENT: data.toString(),
-      LINK: path.join("blog", blog),
+      LINK: path.join(BLOG, blog),
       linkPath: darkMode.linkPath,
       otherModeLinkPath: lightMode.linkPath,
       navEmoji: darkMode.navEmoji,
@@ -130,15 +131,15 @@ const buildPosts = () => {
     });
 
     fs.writeFileSync(
-      path.join(BUILD_DARK_MODE_FOLDER, BLOG_FOLDER, blog),
+      path.join(BUILD_DARK_MODE_FOLDER, BLOG, blog),
       darkModeRendered
     );
   });
 };
 
 const resizeCompressImages = () => {
-  let sourceImages = readFilesInFolder(path.join("src", "images"));
-  let alreadyProcessed = readFilesInFolder(path.join("public", "images"));
+  let sourceImages = readFilesInFolder(path.join(SRC, IMAGES));
+  let alreadyProcessed = readFilesInFolder(path.join(PUBLIC, IMAGES));
 
   let notYetProcessed = sourceImages.filter(
     (img) => !alreadyProcessed.includes(img)
@@ -148,16 +149,13 @@ const resizeCompressImages = () => {
     notYetProcessed,
     720,
     80,
-    path.join("src", "images"),
-    path.join("public", "images")
+    path.join(SRC, IMAGES),
+    path.join(PUBLIC, IMAGES)
   );
 };
 
 const copyFavicon = () => {
-  fs.copyFileSync(
-    path.join("src", FAVICON),
-    path.join(BUILD_LIGHT_MODE_FOLDER, FAVICON)
-  );
+  fs.copyFileSync(path.join("src", FAVICON), path.join(PUBLIC, FAVICON));
 };
 
 const build = () => {
