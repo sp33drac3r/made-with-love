@@ -1,10 +1,10 @@
 # Made with 💙 Static Blog Builder
 
-A stupid simple blog builder for fast, minimal blogs.
+A stupid simple blog builder for fast, minimal blogging.
 
 ## Motivation
 
-I decided to make this little blog builder after playing around with the [Bear blogging platform](https://bearblog.dev/). I love the layout of bear but I wanted a little bit more control over the development experience, hosting and features. I highly recommend using Bear if you like this layout and don't care about a custom hostname or dark mode!
+I decided to make this clone after playing around with the [Bear blogging platform](https://bearblog.dev/). I love Bear's layout but I wanted a little more control over the development experience, hosting and features. I highly recommend using Bear if you like this layout and don't care about a custom hostname or dark mode!
 
 [See my post on why platforms like Bear are the antidote to much of the garbage we find on the web today.](https://haphazard.engineering/blog/made-with-love.html)
 
