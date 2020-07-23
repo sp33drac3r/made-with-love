@@ -14,7 +14,7 @@ I decided to make this clone after playing around with the [Bear blogging platfo
 - `git clone git@github.com:sp33drac3r/made-with-love.git && cd made-with-love`
 - `npm install`
 - `npm start`
-- open locahost:8085 in your browser
+- open localhost:8085 in your browser
 
 ## Features
 
