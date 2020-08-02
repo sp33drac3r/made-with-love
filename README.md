@@ -21,7 +21,7 @@ I decided to make this clone after playing around with the [Bear blogging platfo
 - 💨 Blazing fast, text-only page loads.
 - 📱 Mobile responsive using the [motherfucking website framework](https://motherfuckingwebsite.com/).
 - 🔥 Hot reloading.
-- 🎯 SEO by default.
+- 🎯 SEO by default (COMING SOON).
 - ☀️ / 🌑 Light mode and dark mode.
 - 📷 Automatic image resizing and compression.
 
